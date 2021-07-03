@@ -6,10 +6,30 @@
     "configurations": [
         
         {
-            "name": "Python: Module - main",
+            "name": "Python: Module - optimized",
             "type": "python",
             "request": "launch",
             "module": "AlgoInvest",
+            "stopOnEntry": false
+        },        
+        {
+            "name": "Python: Module - glouton",
+            "type": "python",
+            "request": "launch",
+            "module": "AlgoInvest",
+            "args": [
+                "-g"
+            ],
+            "stopOnEntry": false
+        },
+        {
+            "name": "Python: Module - agrparse",
+            "type": "python",
+            "request": "launch",
+            "module": "AlgoInvest",
+            "args": [
+                "-rp", "actions_list.csv"
+            ],
             "stopOnEntry": false
         },
         {

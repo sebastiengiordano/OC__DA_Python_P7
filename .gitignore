@@ -1,1 +1,3 @@
 __pycache__/
+AlgoInvest/utils/limit_time.py
+AlgoInvest/utils/signal_for_windows.py

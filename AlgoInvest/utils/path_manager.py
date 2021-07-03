@@ -1,4 +1,4 @@
-from os.path import dirname, join as os_path_join, exists, isfile
+from os.path import dirname, join, exists, isfile
 from os import listdir, makedirs
 
 
@@ -6,26 +6,18 @@ def folder_path(file: str):
     '''Returns the directory component of a pathname.'''
     return dirname(file)
 
-def relative_path(folder_path:str, relative_path: str):
-    '''
-    Return the absolute path of a relative path
-    which start from an aboslute path.
-    '''
-    return os_path_join(
-            folder_path,
-            relative_path)
 
 def path_join(*path: str):
     '''Concatenate path'''
-    return os_path_join(
-            *path)
+    return join(*path)
 
-def files_in_folder(folder_path: str ) -> list:
+
+def files_in_folder(folder_path: str) -> list:
     '''Return the list of all files in folder_path and its subfolder'''
     files_in_folder_path = []
     # Loop on all files or directories inside folder_path
     for file_or_dir in listdir(folder_path):
-        file_or_dir_path = os_path_join(folder_path, file_or_dir)
+        file_or_dir_path = join(folder_path, file_or_dir)
         # If file_or_dir is a file
         if isfile(file_or_dir_path):
             # Add it to the files list
@@ -40,9 +32,11 @@ def files_in_folder(folder_path: str ) -> list:
             files_in_folder_path += files_in_subfolder
     return files_in_folder_path
 
+
 def file_exists(file):
     '''Return True if the file exists, otherwise return False'''
     return exists(file)
+
 
 def check_create_folder(file_or_dir):
     '''From an absolute path, create the folder if it doesn't already exist'''

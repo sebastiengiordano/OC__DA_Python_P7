@@ -1,11 +1,12 @@
+from itertools import combinations
 from time import time
-from AlgoInvest.utils.combinations import combinations
+
 from AlgoInvest.utils.utils import csv_to_list
 from AlgoInvest.utils.shares_portfolio import SharesPortfolio, Share
 from AlgoInvest import MAX_WALLET_COST
 
 
-def brutal_force(path, start):
+def brutal_force_itertools(path, start):
     shares_list = csv_to_list(path)
     # Removed header
     shares_list = shares_list[1:]
@@ -20,7 +21,7 @@ def brutal_force(path, start):
     # Generate all combinations of 1 to size_of_list elements of shares_list
     combinations_list = []
     for k in range(1, len(shares_list) + 1):
-        combinations(combinations_list, [], share_list, k)
+        combinations_list += list(combinations(share_list, k))
 
     step_mem = step
     step = time()
@@ -42,7 +43,7 @@ def brutal_force(path, start):
     step = time()
     print(f"\t sorted shares_portfolio_list:\t{step-step_mem}")
 
-    # Keep the number_of_item first benefit with a cost less or equal to MAX_WALLET_COST €
+    # Keep the 3 first benefit with a cost less or equal to MAX_WALLET_COST €
     number_of_item = 1
     shares_portfolio_index = []
     for index, shares_portfolio in enumerate(shares_portfolio_list):
