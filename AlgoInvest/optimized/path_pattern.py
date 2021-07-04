@@ -1,11 +1,14 @@
+from cmath import cos
 from time import time
 
 from AlgoInvest import MAX_WALLET_COST
-from AlgoInvest.utils.shares_portfolio_optimized import ShareOpt, SharesPortfolioOpt
+from AlgoInvest.utils.shares_portfolio_optimized import (
+    ShareOpt, SharesPortfolioOpt)
 from AlgoInvest.utils.utils import csv_to_list
 
 
-def path_pattern(path, start):
+def path_pattern(path: str, start: time):
+
     # Get the list of shares
     shares_from_csv = csv_to_list(path)
     # Removed header
@@ -16,10 +19,10 @@ def path_pattern(path, start):
         shares_list.append(ShareOpt(action[0], action[1], action[2]))
 
     step = time()
-    print(f"\n\t shares_list:\t{step-start}"))
+    print(f"\n\t shares_list:\t{step-start}")
 
     number_of_shares = len(shares_list)
-    
+
     # Generate matrix for best benefit path
     # First column correspond to initial value, set to 0
     best_benefit = [
@@ -27,13 +30,16 @@ def path_pattern(path, start):
         for _ in range(number_of_shares + 1)
         ]
     # Generate matrix which store all course path
-    course_path = best_benefit.copy()
+    course_path = [
+        [0 for _ in range(MAX_WALLET_COST + 1)]
+        for _ in range(number_of_shares + 1)
+        ]
 
     # pathfinding algorithm
     for i in range(1, number_of_shares + 1):
-            share = shares_list[i - 1]
-            cost = share.cost
-            benefit = share.money_benefit
+        share = shares_list[i - 1]
+        cost = cost_in_cents_to_int(share.cost)
+        benefit = share.money_benefit
         for b in range(1, MAX_WALLET_COST + 1):
             # Check if cost is lower than the row cost
             if cost <= b:
@@ -58,13 +64,21 @@ def path_pattern(path, start):
     # from its last cell (which contains the best benefit)
     j = MAX_WALLET_COST
     shares_portfolio = SharesPortfolioOpt([])
-    for i in range (number_of_shares + 1, 0, -1):
+    for i in range(number_of_shares, 0, -1):
         current_course_path = course_path[i][j]
         if current_course_path < j:
             # This share has been added
             shares_portfolio += shares_list[i - 1]
-            # Jump to the row where we come from 
+            # Jump to the row where we come from
             j = current_course_path
-    
+
     print(shares_portfolio)
-            
+
+
+def cost_in_cents_to_int(cost_in_cents: int) -> int:
+    if cost_in_cents <= 0:
+        return MAX_WALLET_COST + 1
+    if cost_in_cents % 100:
+        return int(cost_in_cents / 100) + 1
+    else:
+        return int(cost_in_cents / 100)

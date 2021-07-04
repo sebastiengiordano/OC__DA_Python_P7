@@ -6,6 +6,28 @@
     "configurations": [
         
         {
+            "name": "path_pattern - dataset1_Python+P7.csv",
+            "type": "python",
+            "request": "launch",
+            "module": "AlgoInvest",
+            "args": [
+                "-p",
+                "-ap", "C:\\OpenClassRooms\\P7\\Dev\\AlgoInvest\\data\\dataset1_Python+P7.csv"
+            ],
+            "stopOnEntry": false
+        },        
+        {
+            "name": "path_pattern - dataset100",
+            "type": "python",
+            "request": "launch",
+            "module": "AlgoInvest",
+            "args": [
+                "-p",
+                "-rp", "dataset100.csv"
+            ],
+            "stopOnEntry": false
+        },        
+        {
             "name": "Python: Module - optimized",
             "type": "python",
             "request": "launch",

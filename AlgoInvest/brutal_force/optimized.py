@@ -1,9 +1,10 @@
 from time import time
 
 from AlgoInvest.utils.utils import csv_to_list
-from AlgoInvest.utils.shares_portfolio_optimized import ShareOpt, SharesPortfolioOpt
-from AlgoInvest.utils.limit_time import LimitTime, LimitTimeException
+from AlgoInvest.utils.shares_portfolio_optimized import (
+    ShareOpt, SharesPortfolioOpt)
 from AlgoInvest import MAX_WALLET_COST
+
 
 def optimized(path, start):
 
@@ -11,11 +12,11 @@ def optimized(path, start):
     shares_from_csv = csv_to_list(path)
     # Removed header
     shares_from_csv = shares_from_csv[1:]
-    # For each action, generate a Share object
+    # For each action, generate a ShareOpt object
     shares_list = []
     for action in shares_from_csv:
-        shares_list.append(Share(action[0], action[1], action[2]))
-    
+        shares_list.append(ShareOpt(action[0], action[1], action[2]))
+
     # Sorted shares_list by benefit
     # shares_list.sort(key=lambda x: x.benefit, reverse=True)
     # Keep 90% of the table
@@ -33,7 +34,8 @@ def optimized(path, start):
 
     # Genererate list of SharesPortfolio
     for k in range(1, len(shares_list)):
-        best_shares_portfolio += check_share(best_shares_portfolio, shares_list[k])
+        best_shares_portfolio += check_share(
+            best_shares_portfolio, shares_list[k])
         if time() - start > 60:
             print(f"Too long: {k} items managed in {(time() - start):.2f}s")
             break
@@ -49,11 +51,12 @@ def optimized(path, start):
     step = time()
     print(f"\t sorted best_shares_portfolio:\t{step-step_mem}")
 
-    # Keep the number_of_item first benefit with a cost less or equal to MAX_WALLET_COST €
+    # Keep the number_of_item first benefit with
+    # a cost less or equal to MAX_WALLET_COST €
     number_of_item = 1
     shares_portfolio_index = []
     for index, shares_portfolio in enumerate(best_shares_portfolio):
-        if shares_portfolio.cost <= MAX_WALLET_COST:
+        if shares_portfolio.cost <= MAX_WALLET_COST * 100:
             shares_portfolio_index.append(index)
             number_of_item -= 1
             if number_of_item == 0:
@@ -62,10 +65,13 @@ def optimized(path, start):
         print(best_shares_portfolio[index])
 
 
-def check_share(best_shares_portfolio: list[SharesPortfolioOpt], share: Share):
+def check_share(
+        best_shares_portfolio: list[SharesPortfolioOpt],
+        share: ShareOpt
+        ) -> list[SharesPortfolioOpt]:
     shares_portfolio = []
     for share_portfolio in best_shares_portfolio:
         share_portfolio_update = share_portfolio + share
-        if share_portfolio_update.cost <= MAX_WALLET_COST:
+        if share_portfolio_update.cost <= MAX_WALLET_COST * 100:
             shares_portfolio.append(share_portfolio_update)
     return shares_portfolio

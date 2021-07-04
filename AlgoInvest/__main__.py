@@ -97,6 +97,7 @@ def run_algo(args, path):
 
     print(f"\n\tAlgo duration: {(time() - start):.3f}s")
 
+
 if __name__ == '__main__':
     args = set_parser()
     path = set_data_path(args)
