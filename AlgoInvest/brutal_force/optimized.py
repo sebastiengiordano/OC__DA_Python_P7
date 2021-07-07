@@ -1,3 +1,4 @@
+from operator import le
 from time import time
 
 from AlgoInvest.utils.utils import csv_to_list
@@ -33,12 +34,16 @@ def optimized(path, start):
     best_shares_portfolio = [first_share_portfolio]
 
     # Genererate list of SharesPortfolio
-    for k in range(1, len(shares_list)):
+    for k in range(len(shares_list)):
         best_shares_portfolio += check_share(
             best_shares_portfolio, shares_list[k])
+        share_portfolio = SharesPortfolioOpt([shares_list[k]])
+        share_portfolio.update()
+        best_shares_portfolio.append(share_portfolio)
         if time() - start > 60:
             print(f"Too long: {k} items managed in {(time() - start):.2f}s")
             break
+    print("\n\tbest_shares_portfolio size: ", len(best_shares_portfolio))
 
     step_mem = step
     step = time()

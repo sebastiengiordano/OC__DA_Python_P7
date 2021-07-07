@@ -31,6 +31,7 @@ def brutal_force_itertools(path, start):
     shares_portfolio_list = []
     for combination in combinations_list:
         shares_portfolio_list.append(SharesPortfolio(combination))
+    print("\n\tshares_portfolio_list size: ", len(shares_portfolio_list))
 
     step_mem = step
     step = time()
