@@ -4,7 +4,6 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-        
         {
             "name": "path_pattern - dataset1_Python+P7.csv",
             "type": "python",
@@ -15,27 +14,27 @@
                 "-ap", "C:\\OpenClassRooms\\P7\\Dev\\AlgoInvest\\data\\dataset1_Python+P7.csv"
             ],
             "stopOnEntry": false
-        },        
+        },
         {
-            "name": "path_pattern - dataset100",
+            "name": "path_pattern - dataset2_Python+P7.csv",
             "type": "python",
             "request": "launch",
             "module": "AlgoInvest",
             "args": [
                 "-p",
-                "-rp", "dataset100.csv"
+                "-ap", "C:\\OpenClassRooms\\P7\\Dev\\AlgoInvest\\data\\dataset2_Python+P7.csv"
             ],
             "stopOnEntry": false
-        },        
+        },
         {
-            "name": "Python: Module - optimized",
+            "name": "Python: Module - brutal_force_optimized",
             "type": "python",
             "request": "launch",
             "module": "AlgoInvest",
             "stopOnEntry": false
-        },        
+        },
         {
-            "name": "Python: Module - glouton",
+            "name": "Python: Module - glutton",
             "type": "python",
             "request": "launch",
             "module": "AlgoInvest",

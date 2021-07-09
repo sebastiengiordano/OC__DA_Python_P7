@@ -18,9 +18,6 @@ def path_pattern(path: str, start: time):
     for action in shares_from_csv:
         shares_list.append(ShareOpt(action[0], action[1], action[2]))
 
-    step = time()
-    print(f"\n\t shares_list:\t{step-start}")
-
     number_of_shares = len(shares_list)
 
     # Generate matrix for best benefit path
@@ -73,6 +70,12 @@ def path_pattern(path: str, start: time):
             j = current_course_path
 
     print(shares_portfolio)
+
+    max_i_index = len(best_benefit) - 1
+    max_b_index = len(best_benefit[0]) - 1
+    print("\n\tBest benefit last 5 values:")
+    for i in range(5):
+        print(f"\t\t{best_benefit[max_i_index][max_b_index - i]:6.2f} €")
 
 
 def cost_in_cents_to_int(cost_in_cents: int) -> int:

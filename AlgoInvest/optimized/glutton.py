@@ -4,7 +4,7 @@ from AlgoInvest.utils.shares_portfolio_optimized import (
 from AlgoInvest import MAX_WALLET_COST
 
 
-def glouton(path):
+def glutton(path):
     # Get the list of shares
     shares_list = csv_to_list(path)
     # Removed header
@@ -20,6 +20,8 @@ def glouton(path):
         share_portfolio_update = share_portfolio + share_list[index]
         if share_portfolio_update.cost <= MAX_WALLET_COST * 100:
             share_portfolio = share_portfolio_update
+        else:
+            break
 
-    # Show the wallet get by glouton algo
+    # Show the wallet get by glutton algo
     print(share_portfolio)

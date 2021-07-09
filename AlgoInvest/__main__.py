@@ -5,8 +5,8 @@ from argparse import ArgumentParser
 from AlgoInvest.brutal_force.brutal_force import brutal_force
 from AlgoInvest.brutal_force.brutal_force_itertools import (
     brutal_force_itertools)
-from AlgoInvest.brutal_force.optimized import optimized
-from AlgoInvest.optimized.glouton import glouton
+from AlgoInvest.brutal_force.brutal_force_optimized import brutal_force_optimized
+from AlgoInvest.optimized.glutton import glutton
 from AlgoInvest.optimized.path_pattern import path_pattern
 from .utils.path_manager import path_join, folder_path
 
@@ -25,8 +25,8 @@ def set_parser():
         help='If set, used brutal_force_itertools algorithm',
         action='store_true', required=False)
     parser.add_argument(
-        "-g", "--glouton",
-        help='If set, used glouton algorithm',
+        "-g", "--glutton",
+        help='If set, used glutton algorithm',
         action='store_true', required=False)
     parser.add_argument(
         "-p", "--path_pattern",
@@ -84,16 +84,16 @@ def run_algo(args, path):
         no_algo_set = False
         start = time()
         brutal_force_itertools(path, start)
-    if args.glouton:
+    if args.glutton:
         no_algo_set = False
         start = time()
-        glouton(path)
+        glutton(path)
     if args.path_pattern:
         no_algo_set = False
         start = time()
         path_pattern(path, start)
     if no_algo_set:
-        optimized(path, start)
+        brutal_force_optimized(path, start)
 
     print(f"\n\tAlgo duration: {(time() - start):.3f}s")
 
