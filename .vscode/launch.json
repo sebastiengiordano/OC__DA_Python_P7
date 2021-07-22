@@ -54,6 +54,15 @@
             "stopOnEntry": false
         },
         {
+            "name": "Python: Module - data",
+            "type": "python",
+            "request": "launch",
+            "module": "AlgoInvest.data",
+            "args": [
+            ],
+            "stopOnEntry": false
+        },
+        {
             "name": "Python : Fichier actuel",
             "type": "python",
             "request": "launch",

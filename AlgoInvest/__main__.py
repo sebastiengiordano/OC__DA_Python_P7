@@ -1,6 +1,7 @@
 from genericpath import exists
 from time import time
 from argparse import ArgumentParser
+from memory_profiler import profile
 
 from AlgoInvest.brutal_force.brutal_force import brutal_force
 from AlgoInvest.brutal_force.brutal_force_itertools import (
@@ -73,7 +74,7 @@ def set_data_path(args):
     else:
         return path
 
-
+@profile(precision=4, )
 def run_algo(args, path):
     no_algo_set = True
     start = time()
@@ -102,3 +103,8 @@ if __name__ == '__main__':
     args = set_parser()
     path = set_data_path(args)
     run_algo(args, path)
+
+    # s=time()
+    # for _ in range(100):
+    #     run_algo(args, path)
+    # print(f"\n\tAlgo mean duration: {(time() - s)/100:.3f}s")
